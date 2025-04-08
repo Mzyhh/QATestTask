@@ -1,5 +1,19 @@
-CREATE TABLE students (
-    id SERIAL PRIMARY KEY,
+CREATE TABLE Students (
+    s_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     year INTEGER NOT NULL
+);
+
+CREATE TABLE Courses (
+    c_no SERIAL PRIMARY KEY,
+    title VARCHAR(100) UNIQUE NOT NULL,
+    hours INTEGER DEFAULT 0 
+);
+
+CREATE TABLE Exams (
+    s_id INTEGER,
+    c_no INTEGER,
+    score REAL DEFAULT 0.0,
+    FOREIGN KEY (s_id) REFERENCES Students (s_id) ON DELETE CASCADE,
+    FOREIGN KEY (c_no) REFERENCES Courses (c_no) ON DELETE CASCADE
 );
