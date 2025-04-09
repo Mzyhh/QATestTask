@@ -26,7 +26,7 @@ docker build -t academy .
 **Step 5**: Run the container
 
 ```sh
-docker run --name academy -e POSTGRES\_PASSWORD=password -d academy
+docker run --name academy -e POSTGRES_PASSWORD=password -d academy
 ```
 
 Use the following command to connect to database in interactive mode:

@@ -1,7 +1,7 @@
 CREATE TABLE Students (
     s_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    year INTEGER NOT NULL
+    start_year INTEGER NOT NULL
 );
 
 CREATE TABLE Courses (
