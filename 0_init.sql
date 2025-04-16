@@ -7,13 +7,13 @@ CREATE TABLE Students (
 CREATE TABLE Courses (
     c_no SERIAL PRIMARY KEY,
     title VARCHAR(100) UNIQUE NOT NULL,
-    hours INTEGER DEFAULT 0 
+    hours INTEGER NOT NULL 
 );
 
 CREATE TABLE Exams (
-    s_id INTEGER,
-    c_no INTEGER,
-    score REAL DEFAULT 0.0,
+    s_id INTEGER NOT NULL,
+    c_no INTEGER NOT NULL,
+    score INTEGER DEFAULT 0 CHECK(score >= 0 AND score <= 100),
     FOREIGN KEY (s_id) REFERENCES Students (s_id) ON DELETE CASCADE,
     FOREIGN KEY (c_no) REFERENCES Courses (c_no) ON DELETE CASCADE
 );

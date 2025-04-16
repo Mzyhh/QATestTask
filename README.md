@@ -1,33 +1,21 @@
-# QATestTask
+## Задание № 2 
 
-Solution to the test task on QA engineer in PostgresProffesional
-
-## Second task
-
-### Setting up the PostgreSQL with Docker
-
-**Step 1**: Pull official PostgreSQL image from DockerHub
+**Задание 1-2**: Создание нового образа на основе официального образа postgres с DockerHub (см. Dockerfile)
 
 ```sh
-docker pull postgres
-```
+docker build -t academy .
 
-**Step 2**: Create new Docker image based on postgres via Dockerfile
+docker run --name academy -e POSTGRES_PASSWORD=password -d academy
+```
 
 **Step 3**: Create the init.sql file. In the future we will use it to 
 make whole `academy` database.
 
 **Step 4**: Build the image
 
-```sh
-docker build -t academy .
-```
 
 **Step 5**: Run the container
 
-```sh
-docker run --name academy -e POSTGRES_PASSWORD=password -d academy
-```
 
 Use the following command to connect to database in interactive mode:
 
