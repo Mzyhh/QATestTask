@@ -215,3 +215,13 @@ BEGIN
     RAISE NOTICE 'Inserted % exam records', n;
 END;
 ```
+
+### Примечание.
+
+Указанные скрипты в образе `academy` лежат в директории 
+`home/scripts`. Чтобы выполнить их прямо в `psql` можно использовать следующую
+команду:
+
+```psql
+\i \home\scripts\some_script.sql
+```
