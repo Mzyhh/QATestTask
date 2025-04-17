@@ -1,13 +1,13 @@
 CREATE TABLE Students (
     s_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    start_year INTEGER NOT NULL
+    start_year INTEGER NOT NULL CHECK(start_year > 0)
 );
 
 CREATE TABLE Courses (
     c_no SERIAL PRIMARY KEY,
     title VARCHAR(100) UNIQUE NOT NULL,
-    hours INTEGER NOT NULL 
+    hours INTEGER NOT NULL CHECK(hours > 0) 
 );
 
 CREATE TABLE Exams (
