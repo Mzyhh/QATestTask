@@ -1,5 +1,9 @@
-SELECT * FROM Students s 
-WHERE
-    (SELECT COUNT(*) FROM exams e WHERE e.s_id = s.s_id) = 0;
+-- show students who passed no exams
 
--- SELECT s.* FROM Students s LEFT JOIN Exams e ON s.s_id = e.s_id WHERE e.s_id IS NULL;
+-- Using sub-query (slower)
+SELECT *  
+FROM Students s 
+WHERE s.s_id NOT IN (SELECT DISTINCT e.s_id FROM Exams e);
+
+-- Using JOIN
+SELECT s.* FROM Students s LEFT JOIN Exams e ON s.s_id = e.s_id WHERE e.s_id IS NULL;

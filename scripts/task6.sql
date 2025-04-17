@@ -1,1 +1,12 @@
-SELECT name, COUNT(name) as CountExams FROM Students s JOIN Exams e ON s.s_id = e.s_id WHERE e.s_id IS NOT NULL GROUP BY name;
+-- show students with number of passed exams 
+-- only for student with at least one passed exam else use commented version
+
+SELECT name, COUNT(Exams.s_id) as CountExams
+FROM Students
+JOIN Exams ON Students.s_id = Exams.s_id
+GROUP BY name;
+
+-- SELECT name, COUNT(Exams.s_id) as CountExams 
+-- FROM Students 
+-- LEFT JOIN Exams ON Students.s_id = Exams.s_id 
+-- GROUP BY name;
