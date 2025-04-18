@@ -15,5 +15,6 @@ CREATE TABLE Exams (
     c_no INTEGER NOT NULL,
     score INTEGER DEFAULT 0 CHECK(score >= 0 AND score <= 100),
     FOREIGN KEY (s_id) REFERENCES Students (s_id) ON DELETE CASCADE,
-    FOREIGN KEY (c_no) REFERENCES Courses (c_no) ON DELETE CASCADE
+    FOREIGN KEY (c_no) REFERENCES Courses (c_no) ON DELETE CASCADE,
+    PRIMARY KEY (s_id, c_no)
 );
