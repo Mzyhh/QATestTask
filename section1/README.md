@@ -17,7 +17,7 @@
 
 <!--
 ```plantuml
-@startuml payment_intergation_schema.svg
+@startuml payment_integration_schema.svg
 
 Alice -> Bob: Hello
 Bob -> Alice: Hi!
