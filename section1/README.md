@@ -26,7 +26,8 @@ Bob -> Alice: Hi!
 ```
 -->
 
-![](payment_integration_schema.svg)
+![Integration with payment](payment_integration_schema.svg)
+<img src="./payment_integration_schema.svg">
 
 ### Сроки
 
