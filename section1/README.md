@@ -13,6 +13,21 @@
 - выбор способа доставки
 - оплата (сторонний сервис API)
 
+### Схема интеграции с платежной системой
+
+<!--
+```plantuml
+@startuml payment_intergation_schema.svg
+
+Alice -> Bob: Hello
+Bob -> Alice: Hi!
+
+@enduml
+```
+-->
+
+![](payment_integration_schema.svg)
+
 ### Сроки
 
 **Альфа-версия**: через 2 недели
