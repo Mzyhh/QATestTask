@@ -17,6 +17,7 @@
 - оплата (сторонний сервис API)
 
 <dev hidden>
+
 @startuml architecture.svg
 
 skinparam monochrome true
@@ -71,10 +72,10 @@ note right of delivery
 end note
 
 @enduml
+
 </dev>
 
 ![Схема приложения](UML/architecture.svg)
-<img src="UML/architecture.svg">
 
 ### Схема интеграции с платежной системой
 
@@ -103,6 +104,8 @@ app -> user: Подтверждение
 -->
 
 ![Схема интеграции](UML/payment_integration_schema.svg)
+
+#### Жизненный цикл заказа
 
 <!--
 @startuml order_lifecycle.svg
