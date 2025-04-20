@@ -16,7 +16,7 @@
 - выбор способа доставки
 - оплата (сторонний сервис API)
 
-<dev hidden>
+<div hidden>
 
 @startuml architecture.svg
 
@@ -73,7 +73,7 @@ end note
 
 @enduml
 
-</dev>
+</div>
 
 ![Схема приложения](UML/architecture.svg)
 
@@ -226,7 +226,7 @@ endif
 оплаты и доставки.
 4. *End-to-End тесты* (Black box): ручные + автоматизация.
 
-<dev hidden>
+<div hidden>
 @startuml testing_components.svg
 rectangle "Unit тесты" as unit
 rectangle "Интеграционные тесты" as integration
@@ -241,7 +241,7 @@ note right of unit: Разрабатываются программистами
 note right of integration: Mock-объекты для внешних сервисов.
 note right of e2e: Автоматизация + ручное тестирование
 @enduml
-</dev>
+</div>
 
 ![Пирамида тестирования](UML/testing_components.svg)
 
