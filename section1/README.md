@@ -4,6 +4,9 @@
 Основная цель - обеспечить высокое качество продукта, 
 минимизировать риски и соответствовать требованиям пользователей.
 
+Для наглядности использовались UML-диаграммы, сгенерированные такой доброй
+программой как [plantuml](https://plantuml.com/).
+
 ### Архитектура приложения
 
 **Фукнционал**:
@@ -13,21 +16,178 @@
 - выбор способа доставки
 - оплата (сторонний сервис API)
 
+<dev hidden>
+@startuml architecture.svg
+
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 12
+
+database "База данных" as db {
+    folder "Товары" as products
+        folder "Пользователи" as users
+        folder "Заказы" as orders
+}
+
+package "Внешние сервисы" {
+    cloud "Платежный шлюз" as payment
+    cloud "Служба доставки" as delivery
+}
+
+package "frontend" {
+    component "Пользовательский интерфейс" as ui
+}
+
+package "bakend"{
+    component "Бизнес логика" as server
+    component "Система аутентификации" as auth
+    
+    ui --> server : HTTP/HTTPS
+    server --> db : SQL
+    server --> payment : API
+    server --> delivery : API
+    ui --> auth : Auth request
+    auth --> db : Verify credentials
+}
+
+note bottom of db
+  <b>Структура БД:</b>
+  - Товары (Артикул, цена, описание)
+  - Пользователи (логин, хеш пароля)
+  - Заказы (статус, история)
+end note
+
+note bottom of payment
+  <b>Интеграция:</b>
+  Поддержка МИР и других систем
+  через REST API
+end note
+
+note right of delivery
+    <b>Интеграция:</b>
+    Почта России, ПВЗ маркетплейсов,
+    5posts, CDEK
+end note
+
+@enduml
+</dev>
+
+![Схема приложения](UML/architecture.svg)
+<img src="UML/architecture.svg">
+
 ### Схема интеграции с платежной системой
 
 <!--
 ```plantuml
-@startuml payment_integration_schema.svg
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 12
 
-Alice -> Bob: Hello
-Bob -> Alice: Hi!
+@startuml payment_integration_schema.svg
+actor Пользователь as user
+participant "Интернет-магазин" as app
+participant "Платёжная система" as payment
+participant Банк as bank
+
+user -> app: Оплата заказа
+app -> payment: Запрос на транзакцию
+payment -> bank: Проверка карты
+bank -> payment: Ответ
+payment -> app: Статус оплаты
+app -> user: Подтверждение
 
 @enduml
 ```
 -->
 
-![Integration with payment](payment_integration_schema.svg)
-<img src="./payment_integration_schema.svg">
+![Схема интеграции](UML/payment_integration_schema.svg)
+<img src="./UML/payment_integration_schema.svg">
+
+<!--
+@startuml order_lifecycle.svg
+
+skinparam monochrome false
+skinparam shadowing true
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 13
+skinparam roundcorner 15
+skinparam ArrowColor #444444
+skinparam ArrowFontStyle bold
+skinparam ArrowFontSize 11
+
+start
+: **1. Добавление товаров**;
+note right #FFEBCD
+  <b>Действия пользователя:</b>
+  - Выбор товаров
+  - Указание количества
+  - Просмотр итоговой суммы
+end note
+
+: **2. Оформление заказа**;
+note right #E6F3FF
+  <b>Заполняемые данные:</b>
+  - Контактная информация
+  - Адрес доставки
+  - Способ оплаты
+  - Комментарии к заказу
+end note
+
+if (**3. Оплата успешна?**) then (Да)
+  : **4. Подтверждение заказа**;
+  note right #D5E8D4
+    <b>Системные действия:</b>
+    - Генерация номера заказа
+    - Отправка email-уведомления
+    - Создание записи в БД
+  end note
+  
+  : **5. Передача в доставку**;
+  note right #CCE5FF
+    <b>Интеграция:</b>
+    - Формирование транспортной накладной
+    - Синхронизация с API службы доставки
+    - Обновление статуса в системе
+  end note
+  
+  : **6. Доставка клиенту**;
+  note right #E5FFCC
+    <b>Варианты:</b>
+    - Курьерская доставка
+    - Пункт выдачи
+    - Постамат
+    - Самовывоз
+  end note
+  
+  stop
+else (Нет)
+  : **4. Ошибка оплаты**;
+  note right #F8CECC
+    <b>Возможные причины:</b>
+    - Недостаточно средств
+    - Отказ банка
+    - Техническая ошибка
+    - Истек срок действия карты
+  end note
+  
+  : **5. Возврат в корзину**;
+  note right #FFDDCC
+    <b>Состояние:</b>
+    - Товары сохранены
+    - Данные формы частично заполнены
+    - Предложение альтернативных способов оплаты
+  end note
+  
+  stop
+endif
+
+@enduml
+-->
+
+![Жизненный цикл заказа](UML/order_lifecycle.svg)
+<img src="./UML/order_lifecycle.svg">
 
 ### Сроки
 
@@ -64,6 +224,26 @@ Bob -> Alice: Hi!
 3. *System-тесты* (Gray/Black box): API, взаимодействие с сервисами 
 оплаты и доставки.
 4. *End-to-End тесты* (Black box): ручные + автоматизация.
+
+<dev hidden>
+@startuml testing_components.svg
+rectangle "Unit тесты" as unit
+rectangle "Интеграционные тесты" as integration
+rectangle "Системные тесты" as system
+rectangle "E2E тесты" as e2e
+
+unit --> integration
+integration --> system
+system --> e2e
+
+note right of unit: Разрабатываются программистами
+note right of integration: Mock-объекты для внешних сервисов.
+note right of e2e: Автоматизация + ручное тестирование
+@enduml
+</dev>
+
+![Пирамида тестирования](UML/testing_components.svg)
+<img src="./UML/testing_components.svg">
 
 ## Тестирование понедельно
 
