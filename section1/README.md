@@ -16,8 +16,7 @@
 - выбор способа доставки
 - оплата (сторонний сервис API)
 
-<div hidden>
-
+<!--
 @startuml architecture.svg
 
 skinparam monochrome true
@@ -44,12 +43,12 @@ package "bakend"{
     component "Бизнес логика" as server
     component "Система аутентификации" as auth
     
-    ui \--> server : HTTP/HTTPS
-    server \--> db : SQL
-    server \--> payment : API
-    server \--> delivery : API
-    ui \--> auth : Auth request
-    auth \--> db : Verify credentials
+    ui \-\-> server : HTTP/HTTPS
+    server \-\-> db : SQL
+    server \-\-> payment : API
+    server \-\-> delivery : API
+    ui \-\-> auth : Auth request
+    auth \-\-> db : Verify credentials
 }
 
 note bottom of db
@@ -72,8 +71,7 @@ note right of delivery
 end note
 
 @enduml
-
-</div>
+-->
 
 ![Схема приложения](UML/architecture.svg)
 
@@ -234,9 +232,9 @@ rectangle "Интеграционные тесты" as integration
 rectangle "Системные тесты" as system
 rectangle "E2E тесты" as e2e
 
-unit --> integration
-integration --> system
-system --> e2e
+unit \-\-> integration
+integration \-\-> system
+system \-\-> e2e
 
 note right of unit: Разрабатываются программистами
 note right of integration: Mock-объекты для внешних сервисов.
