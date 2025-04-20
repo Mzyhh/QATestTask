@@ -43,12 +43,12 @@ package "bakend"{
     component "Бизнес логика" as server
     component "Система аутентификации" as auth
     
-    ui --> server : HTTP/HTTPS
-    server --> db : SQL
-    server --> payment : API
-    server --> delivery : API
-    ui --> auth : Auth request
-    auth --> db : Verify credentials
+    ui \--> server : HTTP/HTTPS
+    server \--> db : SQL
+    server \--> payment : API
+    server \--> delivery : API
+    ui \--> auth : Auth request
+    auth \--> db : Verify credentials
 }
 
 note bottom of db
@@ -103,7 +103,6 @@ app -> user: Подтверждение
 -->
 
 ![Схема интеграции](UML/payment_integration_schema.svg)
-<img src="./UML/payment_integration_schema.svg">
 
 <!--
 @startuml order_lifecycle.svg
@@ -187,7 +186,6 @@ endif
 -->
 
 ![Жизненный цикл заказа](UML/order_lifecycle.svg)
-<img src="./UML/order_lifecycle.svg">
 
 ### Сроки
 
@@ -243,7 +241,6 @@ note right of e2e: Автоматизация + ручное тестирова�
 </dev>
 
 ![Пирамида тестирования](UML/testing_components.svg)
-<img src="./UML/testing_components.svg">
 
 ## Тестирование понедельно
 
